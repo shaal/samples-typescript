@@ -7,9 +7,11 @@ ports:
 tasks:
   - name: Run Hello World Worker
     init: |
+      # install pnpm + all packages recursively
+      npm -g install pnpm
+      pnpm -r install
       cd hello-world
       gp open README.md
-      npm install
       gp sync-done install-done
     command: |
       gp sync-await server-up
@@ -17,7 +19,6 @@ tasks:
   - name: Run Hello World Workflow
     command: |
       cd hello-world
-      gp sync-await install-done
       until docker exec temporal-admin-tools tctl cl h; do sleep 5; done; clear; # retry until it works
       sleep 10 # random buffer just to make really sure temporal is live
       gp sync-done server-up

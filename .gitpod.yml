@@ -26,6 +26,7 @@ tasks:
       gp preview http://localhost:8088 # reload Temporal Web to show new workflow
     openMode: split-right
   - name: Temporal Server
+    init: docker-compose pull
     command: docker-compose up
   - name: Temporal Web/tctl
       gp await-port 8088 # temporal web
